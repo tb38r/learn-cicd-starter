@@ -25,7 +25,7 @@ jobs:
               uses: actions/cache@v3
               with:
                 key: go-deps-cache
-                path: ~/go/pkg/mod
+                path: ../go.sum
                 restore-keys: go-deps-cache
     gcp-run:  
     
@@ -33,6 +33,10 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
+
+              - name: Check out code
+                uses: actions/checkout@v3
+
               - id: 'auth'
                 uses: 'google-github-actions/auth@v1'
                 with:
@@ -40,9 +44,6 @@ jobs:
             
               - name: 'Set up Cloud SDK'
                 uses: 'google-github-actions/setup-gcloud@v1'
-
-              - name: Check out code
-                uses: actions/checkout@v3
             
               - name: 'Use gcloud CLI'
                 run: 'gcloud info'
