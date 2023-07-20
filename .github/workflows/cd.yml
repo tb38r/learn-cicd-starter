@@ -21,6 +21,12 @@ jobs:
 
             - name: Build app with script
               run:  scripts/buildprod.sh
+            - name: Cache dependencies
+              uses: actions/cache@v3
+              with:
+                key: go-deps-cache
+                path: ~/go/pkg/mod
+                restore-keys: go-deps-cache
     gcp-run:  
     
         name: run cd
