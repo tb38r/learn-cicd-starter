@@ -8,6 +8,7 @@ jobs:
     deploy:
         name: init cd
         runs-on: ubuntu-latest
+        
 
         steps:
             - name: Set up Go
@@ -36,3 +37,10 @@ jobs:
             
               - name: 'Use gcloud CLI'
                 run: 'gcloud info'
+
+              - name: Cache dependencies
+                uses: actions/cache@v2
+                with:
+                  key: go-deps-cache
+                  path: ~/go/pkg/mod
+                  restore-keys: go-deps-cache
