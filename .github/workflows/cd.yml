@@ -29,8 +29,7 @@ jobs:
                 path: ../go.sum
                 restore-keys: go-deps-cache
 
-            - name: 'Deploy to Cloud Run'
-              run: gcloud run deploy notely --image us-central1-docker.pkg.dev/PROJECT_ID/REPO_NAME/IMAGE_NAME:latest --region us-central1 --allow-unauthenticated --project PROJECT_ID --max-instances=4
+           
 
 
     gcp-run:  
@@ -66,3 +65,6 @@ jobs:
               
               - name: Build docker image & push to Artifact registery
                 run: gcloud builds submit --tag us-central1-docker.pkg.dev/notely-393407/notely-ar-repo/1.0 .
+
+              - name: 'Deploy to Cloud Run'
+                run: gcloud run deploy notely --image us-central1-docker.pkg.dev/notely-393407/notely-ar-repo/1.0 --region us-central1 --allow-unauthenticated --project PROJECT_ID --max-instances=4
