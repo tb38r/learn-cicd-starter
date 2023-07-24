@@ -49,6 +49,14 @@ jobs:
               - name: Install goose
                 run:  go get -u github.com/pressly/goose/cmd/goose
 
+              - name: Set up Go
+                uses: actions/setup-go@v4
+                with:
+                  go-version: '1.20'
+              
+              - name: Sync Vendor Directory
+                run: go mod vendor
+              
               - name: Build app with script
                 run:  scripts/buildprod.sh
 
