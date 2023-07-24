@@ -51,6 +51,10 @@ jobs:
                 uses: actions/setup-go@v4
                 with:
                   go-version: '1.20'
+            
+              - name: Install goose
+                run: go get -u github.com/pressly/goose/cmd/goose
+                    
               
               - name: Sync Vendor Directory
                 run: go mod vendor
@@ -76,14 +80,10 @@ jobs:
                   path: ~/go/pkg/mod
                   restore-keys: go-deps-cache
               
-                  
+
               - name: Build docker image & push to Artifact registery
                 run: gcloud builds submit --tag us-central1-docker.pkg.dev/notely-393407/notely-ar-repo/1.0 .
 
-
-              - name: Install goose
-                run:  go get -u github.com/pressly/goose/cmd/goose
-  
 
               - name:  Run migrations before deploying the application
                 run: ./scripts/migrateup.sh
